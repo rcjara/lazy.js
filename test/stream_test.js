@@ -29,5 +29,13 @@ describe('stream', function() {
             .to.eql([2, 4, 6, 8, 10]);
     });
   });
+
+  describe('map', function() {
+    it('produces a mapped stream', function() {
+      var times3 = function(i) { return i * 3; };
+      expect( s.take(5, s.map(times3, s.nats))
+            .to.eql([3, 6, 9, 12, 15);
+    });
+  });
 });
 
