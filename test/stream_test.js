@@ -33,9 +33,25 @@ describe('stream', function() {
   describe('map', function() {
     it('produces a mapped stream', function() {
       var times3 = function(i) { return i * 3; };
-      expect( s.take(5, s.map(times3, s.nats))
-            .to.eql([3, 6, 9, 12, 15);
+      expect( s.take(5, s.map(times3, s.nats)))
+            .to.eql([3, 6, 9, 12, 15]);
     });
   });
+
+  describe('terminatingNats', function() {
+    it('terminates', function() {
+      expect(
+        s.take(10, s.terminatingNats)
+        ).to.eql([1,2,3,4,5]);
+    });
+  });
+
+  describe('reduce', function() {
+    it('works', function() {
+      var add = function(a,b) {return a + b;};
+      expect( s.reduce(add, 0, s.terminatingNats)).to.eql(15);
+    });
+  });
+
 });
 
